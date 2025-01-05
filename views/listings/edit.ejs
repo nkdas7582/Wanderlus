@@ -10,7 +10,7 @@
     <form method="POST" action="/listings/<%=listing._id%>?_method=PUT">
         <input name="listing[title]"  value="<%=listing.title%>">
         <br>
-        <textarea name="listing[description]"><%=listing.descrption%></textarea>
+        <textarea name="listing[description]"><%=listing.description%></textarea>
     <br>
     <input name="listing[image]"  value="<%=listing.image%>">
     <br>
@@ -19,6 +19,8 @@
     <input name="listing[country]"  value="<%=listing.country%>">
     <br>
     <input name="listing[location]"  value="<%=listing.location%>">
+    <br>
+    <button>Edit</button>
     </form>
     
 </body>
