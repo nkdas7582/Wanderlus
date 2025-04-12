@@ -6,6 +6,7 @@ min-height:100vh;
 }
 .container{
   flex:1;
+  
 }
 .navbar{
   height:5rem;
@@ -25,7 +26,7 @@ color:#222222 !important;
   text-decoration: none;
   color: #555;
   font-size: 0.9rem;
-  transition: color 0.3s, text-decoration 0.3s;
+  transition: color 0.3s;
 }
 .f-info-links a:hover {
   text-decoration: underline;
@@ -59,7 +60,7 @@ color:#222222 !important;
 
 
 .card{
-  border:none !important;
+ /*border:none !important; */
   margin-bottom: 2rem;
   white-space: nowrap;
 }
@@ -103,6 +104,9 @@ text-decoration: none;
 .add-btn,.edit-btn,.edit-buttom{
  background-color:#fe424d !important;
  border:none !important;
+}
+.submit-btn {
+  background-color: #04AA6D !important;
 }
 /*show page*/
 .show-img{

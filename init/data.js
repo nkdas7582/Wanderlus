@@ -349,4 +349,4 @@ const sampleListings = [
     },
   ];
   
-  module.exports = { data: sampleListings };
+  module.exports = { data: sampleListings };//is used in Node.js to export an object containing a property named data, which holds the value of sampleListings. This allows other files to import and use the data property.

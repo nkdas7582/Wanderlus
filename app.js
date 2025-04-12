@@ -2,9 +2,11 @@ const express =require("express");
 const app= express();
 const mongoose=require("mongoose");
 const Listing =require("./Models/listing.js");
+const Review=require("./Models/review.js");
 const ExpressError=require("./Utils/expressError.js");
 const methodOverride =require("method-override");
-const listingSchema=require("./schema.js")
+const {listingSchema}=require("./schema.js")
+const {reviewSchema}=require("./schema.js")
 const wrapAsync=require("./Utils/WrapAsync.js");
 const Mongo_URL="mongodb://127.0.0.1:27017/wanderlust";
 const ejsMate=require("ejs-mate");
@@ -40,9 +42,19 @@ const validateListing=(req,res,next)=>{
     }
     else{
         next();
-
+ 
     } 
 };
+//review validation
+const validateReview = (req, res, next) => {
+    let { error } = reviewSchema.validate(req.body);
+    if (error) {
+        let errMsg = error.details.map(el => el.message).join(", ");
+        return next(new ExpressError(400, errMsg));
+    }
+    next();
+};
+
 //index route
 app.get("/listings", async(req,res)=>{
   const allListings= await Listing.find({});
@@ -57,7 +69,7 @@ app.get("/listings", async(req,res)=>{
 //show route
  app.get("/listings/:id",async(req,res)=>{
         let{id}=req.params;
-       const listing=await Listing.findById(id);//findById is a method
+       const listing=await Listing.findById(id).populate("reviews");//findById is a method
        res.render("listings/show.ejs",{listing});
       
     });
@@ -70,8 +82,6 @@ app.get("/listings", async(req,res)=>{
     res.redirect("/listings");
 
 }));
-
-
 
 //Edit route
 app.get("/listings/:id/edit",async(req,res)=>{
@@ -93,9 +103,25 @@ app.delete("/listings/:id",async(req,res)=>{
     let{id}=req.params; //extract id
     let deletedListing=await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
-    res.redirect("/listings");
+    res.redirect("/listings")
 });
-
+//review post route
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res)=>{
+   let listing= await Listing.findById(req.params.id);
+   let newReview=new Review(req.body.review);
+      listing.reviews.push(newReview); 
+     await newReview.save();
+    await  listing.save();
+      console.log("newReview saved");
+      res.redirect(`/listings/${listing._id}`);        
+}));
+//delete review Route
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+    let{id,reviewId}=req.params;
+    await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`); 
+}));
 // app.get("/testListing",async (req,res)=>{
 //    let samplelisting = new Listing({
 // title:"my New villa",
@@ -108,6 +134,7 @@ app.delete("/listings/:id",async(req,res)=>{
 //    console.log("sample was saved");
 //    res.send("testing sucessful");
 // });
+
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"page not found!"))
 });
@@ -119,3 +146,4 @@ app.use((err,req,res,next)=>{
 app.listen(8080,()=>{
     console.log("server is listing port number 8080");
 });
+//delete route on database
