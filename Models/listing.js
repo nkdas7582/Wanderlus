@@ -8,13 +8,12 @@ const listingSchema= new Schema({
         required:true
     },
     description:{
-        type:String 
+        filename:String,
     },
     image: {
-        filename:String,
-       
+       type:String,
         url:{
-            type: String,
+            filename: String,
             required:true,
             default: "https://www.123rf.com/photo_131093090_tortoiseshell-cat-nestled-in-prairie.html",
             set: (v) =>
