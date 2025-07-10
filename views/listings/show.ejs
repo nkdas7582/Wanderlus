@@ -8,9 +8,11 @@
         <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
         <div class="card-body">
             <p class="card-text">
-                <%= listing.description %><br/>
-                &#8377;<%= listing.price.toLocaleString("en-IN") %><br/>
-                <%= listing.location %><br/>
+                <i><%=listing.owner.username%></i></p>
+                <p>
+                <%= listing.description %><br/></p>
+               <p> &#8377;<%= listing.price.toLocaleString("en-IN") %><br/></p>
+               <p> <%= listing.location %><br/></p>
                 <%= listing.country %>
             </p>
         </div>
@@ -25,7 +27,7 @@
 </div>
 <br/>
 <hr/>
-
+<% if(currentuser)    {%>
 <div class="col-8 offset-3">
     <h4>Leave Review</h4>
     <form action="/listings/<%= listing.id %>/reviews" method="POST" class="needs-validation" novalidate>
@@ -41,6 +43,7 @@
         </div>
         <button type="submit" class="btn btn-dark submit-btn mt-3 mb-3">Submit</button>
     </form>
+<%}%>
     <hr/>
     <h4>All review</h4>
     <div class="row">

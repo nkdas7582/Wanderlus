@@ -1,5 +1,6 @@
 const mongoose=require("mongoose");
-const Review=require("./review.js")
+const Review=require("./review.js");
+const { required } = require("joi");
 const Schema=mongoose.Schema;
 
 const listingSchema= new Schema({
@@ -8,13 +9,16 @@ const listingSchema= new Schema({
         required:true
     },
     description:{
-        filename:String,
+       type:String,
     },
     image: {
-       type:String,
+        filename: {
+            
+       type:String
+    },
         url:{
-            filename: String,
-            required:true,
+           type:String,
+           
             default: "https://www.123rf.com/photo_131093090_tortoiseshell-cat-nestled-in-prairie.html",
             set: (v) =>
                 v === ""? "https://www.123rf.com/photo_131093090_tortoiseshell-cat-nestled-in-prairie.html":v,
@@ -29,6 +33,10 @@ const listingSchema= new Schema({
        
     },
 ],
+owner: {
+    type:Schema.Types.ObjectId,
+    ref:"User"
+},
 });
 listingSchema.post("findOneAndDelete",async (listing)=>{
     if(listing){

@@ -11,8 +11,15 @@
                 <a class="nav-link " href="/">Home</a>
                 <a class="nav-link" href="/listings">All Listings</a>
                 <a class="nav-link" href="/listings/new">Add new Listing</a>
-                  
-                <img src="/G20.png" alt="Logo" />
+            </div>
+               <div class="navbar-nav ms-auto">
+             <% if(!currentuser) {%>
+                  <a class="nav-link" href="/Signup">Sign up</a>
+                <a class="nav-link " href="/login">Login</a>
+             <%}%>
+              <%if(currentuser) {%>
+                <a class="nav-link" href="/logout">Log out</a>
+                 <%} %>
             </div>
         </div>
     </div>
