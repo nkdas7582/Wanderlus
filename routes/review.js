@@ -25,13 +25,18 @@ router.post(
 // DELETE a review
 router.delete(
   "/:reviewId",
+  (req, res, next) => {
+    // Save where to redirect after login
+    req.session.redirectUrl = `/listings/${req.params.id}`;
+    next();
+  },
   isLoggedIn,
-  wrapAsync(async (req, res) => {
+  async (req, res) => {
     const { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash("success", "Review deleted!");
     res.redirect(`/listings/${id}`);
-  })
-)
+  }
+);
 module.exports = router; // ✅ Export the router directly
