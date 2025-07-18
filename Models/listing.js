@@ -12,19 +12,10 @@ const listingSchema= new Schema({
        type:String,
     },
     image: {
-        filename: {
-            
-       type:String
+        url:String,
+    filename:String,
     },
-        url:{
-           type:String,
-           
-            default: "https://www.123rf.com/photo_131093090_tortoiseshell-cat-nestled-in-prairie.html",
-            set: (v) =>
-                v === ""? "https://www.123rf.com/photo_131093090_tortoiseshell-cat-nestled-in-prairie.html":v,
-           },
-    },
-    price:Number,
+   price:Number,
     location:String,
     country:String,
     reviews:[{
@@ -37,6 +28,16 @@ owner: {
     type:Schema.Types.ObjectId,
     ref:"User"
 },
+geometry:{
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+    },coordinates: {
+      type: [Number],
+      required: true
+    }
+  }
+
 });
 listingSchema.post("findOneAndDelete",async (listing)=>{
     if(listing){

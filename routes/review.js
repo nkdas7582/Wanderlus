@@ -4,39 +4,17 @@ const ExpressError = require("../Utils/expressError.js");
 const router = express.Router({ mergeParams: true });
 const Review = require("../Models/review.js");
 const Listing = require("../Models/listing.js");
-const { isLoggedIn, validateReview } = require("../middlewere.js");
-
+const { isLoggedIn, validateReview, isReviewAuthor } = require("../middlewere.js");
+const ReviewController=require("../controllers/review.js");
 // POST a new review
-router.post(
-  "/",
+router.post("/",
   isLoggedIn,
   validateReview,
-  wrapAsync(async (req, res) => {
-    const listing = await Listing.findById(req.params.id);
-    const newReview = new Review(req.body.review);
-    listing.reviews.push(newReview);
-    await newReview.save();
-    await listing.save();
-    req.flash("success", "New review created!");
-    res.redirect(`/listings/${listing._id}`);
-  })
-);
+  wrapAsync(ReviewController.newReview));
 
 // DELETE a review
-router.delete(
-  "/:reviewId",
-  (req, res, next) => {
-    // Save where to redirect after login
-    req.session.redirectUrl = `/listings/${req.params.id}`;
-    next();
-  },
-  isLoggedIn,
-  async (req, res) => {
-    const { id, reviewId } = req.params;
-    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    req.flash("success", "Review deleted!");
-    res.redirect(`/listings/${id}`);
-  }
-);
+router.delete("/:reviewId",
+   isLoggedIn,
+  isReviewAuthor,
+  wrapAsync(ReviewController.deleteReview));
 module.exports = router; // ✅ Export the router directly

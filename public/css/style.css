@@ -137,3 +137,8 @@ text-decoration: none;
 .card-body{
   padding: 0 !important;
 }
+#map{
+  height:350px;
+  width:100vh;
+}
+ 

@@ -1,4 +1,5 @@
 const Listing =require("./Models/listing.js");
+const Review =require("./Models/review.js");
 const ExpressError =require("./Utils/expressError.js");
 const {listingSchema,reviewSchema}=require("./schema.js");
 module.exports.isLoggedIn = (req, res, next) => {
@@ -50,4 +51,12 @@ module.exports.validateReview = async(req, res, next) => {
     }
 };
 
-
+module.exports.isReviewAuthor =async(req,res,next)=>{
+  let {id,reviewId}=req.params;
+  let review =await Review.findById(reviewId);
+  if(!review.author.equals(res.locals.currentuser._id)){
+    req.flash ("error","you are not the owner of that review");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
+}
