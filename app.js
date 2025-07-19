@@ -86,6 +86,9 @@ app.use("/", userRoutes);
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes); // ✅ Review route properly mounted
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 // 404 Handler
 app.all("*", (req, res, next) => {
