@@ -28,31 +28,32 @@ module.exports.showListing=async(req, res) => {
   }
   res.render("listings/show.ejs", { listing });
 }
-//Edit 
-module.exports.createListing = async (req, res, next) => {
-  try {
-    let response = await geocodingClint.forwardGeocode({
-      query: req.body.listing.location,
-      limit: 1,
-    }).send();
 
-    let url = req.file?.path;
-    let filename = req.file?.filename;
+//newlisting created
+ module.exports.createListing=async (req, res, next) => {
+  try{
+ let response=await geocodingClint.forwardGeocode({
+  query:req.body.listing.location,
+  limit: 1,
+})
+  .send()
 
-    const newListing = new Listing(req.body.listing);
-    newListing.owner = req.user._id;
-    newListing.image = { url, filename };
-    newListing.geometry = response.body.features[0].geometry;
 
-    await newListing.save();
-    req.flash("success", "New listing created!");
-    res.redirect("/listings");
-
-  } catch (err) {
+       let url=req.file.path;
+       let filename=req.file.filename;
+       const newListing = new Listing(req.body.listing);
+         newListing.owner=req.user._id;
+         newListing.image={url,filename};
+         newListing.geometry=response.body.features[0].geometry;
+             let savedlisting=    await newListing.save();
+             console.log(savedlisting);
+         console.log(newListing);
+         req.flash("success","new listings created!")
+     res.redirect("/listings");
+       } catch (err) {
     next(err); // ✅ Only call this if there was an error
   }
-};
-
+};//wrap sync catch any througn the next(err)middlewe
  module.exports.EditListing=async(req,res)=>{
     let{id}=req.params;
     const listing=await Listing.findById(id);
