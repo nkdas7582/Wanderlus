@@ -86,10 +86,6 @@ app.use("/", userRoutes);
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes); // ✅ Review route properly mounted
 
-// Home route (optional)
-// app.get("/", (req, res) => {
-//   res.send("🌍 Wanderlust Home Page");
-// });
 
 // 404 Handler
 app.all("*", (req, res, next) => {
