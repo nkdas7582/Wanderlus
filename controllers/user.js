@@ -3,7 +3,7 @@ const passport=require("passport");
 const {saveRedirectUrl}=require("../middlewere.js");
 //signup
 module.exports.renderSignupForm =(req,res)=>{
-    res.render("users/signup.ejs")
+    res.render("users/signup.ejs",{ hideFooter: true })
 };
 
 module.exports.signup=async(req,res)=>{
@@ -27,7 +27,7 @@ module.exports.signup=async(req,res)=>{
     };  
 };
 module.exports.renderLoginForm=(req,res)=>{
-    res.render("users/login.ejs");
+    res.render("users/login.ejs",{ hideFooter: true });
 
 };
 

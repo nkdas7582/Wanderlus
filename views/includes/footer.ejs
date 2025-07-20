@@ -1,22 +1,106 @@
-<footer>
-    <div class="f-info">
-        <div class="f-info-socials">
-     <a href="https://www.facebook.com/airbnb/">
-  <i class="fa-brands fa-square-facebook"></i>
-</a>
 
-
-           <a href="https://www.instagram.com/airbnb/?hl=en"><i class="fa-brands fa-square-instagram"></i></a>
-           <a href="https://www.linkedin.com/company/airbnb/"><i class="fa-brands fa-linkedin"></i></a> 
+<style>
+        /* Add CSS animations for the footer */
+        .footer-content {
+            animation: fadeInUp 1s ease, slideUp 1s ease;
         
-        
-        </div>
-    
-        <div class="f-info-brand">Wanderlust private Limited</div>
-        <div class="f-info-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
+        }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .social-links a {
+            color: grey;
+            font-size: 24px;
+            transition: color 0.3s ease;
+            display: inline-block;
+            margin-right: 15px;
+            animation: fadeInUp 1s ease, slideUp 1s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff5733;
+            padding-left: 5%;
+            transition: 0.5s ease-in-out;
+        }
+
+        /* Additional styles for the bottom part of the footer */
+        .footer-bottom {
+            background-color: #333;
+            padding: 10px 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        .list-unstyled.footer-links li a {
+            text-decoration: none;
+            color:	#121212;
+        }
+
+        .list-unstyled.footer-links li a:hover {
+            color: #ff5733;
+            padding-left: 5%;
+            transition: 0.5s ease-in-out;
+        }
+        .list-unstyled.social-links{
+         display: flex;
+            flex-wrap: nowrap;
+        }
+    </style>
+
+
+<footer style="background-color: #F7F7F7; flex-wrap: wrap;" class="text-dark py-4">
+        <div class="container footer-content">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Contact Us</h4>
+                    <p>Email: info@yourcompany.com</p>
+                    <p>Phone: +1 (123) 456-7890</p>
+                    <p>Address: 123 Main Street, City, Country</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Follow Us</h4>
+                    <ul class="list-unstyled social-links">
+                        <li><a href="https://www.facebook.com/airbnb/"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#https://x.com/Airbnb?"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/airbnb/?hl=en"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/airbnb/"><i class="fab fa-linkedin"></i></a></li>
+                        
+                    </ul>
+                
+                </div>
+            </div>
         </div>
-    </div>
-</footer>
+        <hr class="my-4"> <!-- Add a horizontal line for visual separation -->
+        <div class="footer-bottom bg-white text-dark">
+            <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+        </div>
+    </footer>
