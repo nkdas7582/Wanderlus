@@ -23,6 +23,8 @@ const listing =<%-JSON.stringify(listing)%>;
   <% if (currentuser && listing.owner._id.equals(currentuser._id)) { %>
     <div class="btns">
       <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn col-1 offset-3">Edit</a>
+      <a class="btn btn-dark Reserve-btn ms-5">Reserve</a>
+
       <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
         <button class="btn btn-dark offset-5">Delete</button>
       </form>
@@ -68,11 +70,11 @@ const listing =<%-JSON.stringify(listing)%>;
 
 <hr class="w-100 my-4">
 
-<div class="row">
+<div class="row ms-auto">
   <% if (listing.reviews.length > 0) { %>
-    <h4>All Reviews</h4>
+    <h4 class="ms-5">All Reviews</h4>
     <% for (review of listing.reviews) { %>
-      <div class="card col-5 ms-3 mb-3">
+      <div class="card col-2 ms-5 mb-3">
         <div class="card-body">
           <h5 class="card-title">@<%= review.author.username %></h5>
           <p class="starability-result" data-rating="<%= review.rating %>"></p>

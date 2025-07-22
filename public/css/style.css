@@ -101,7 +101,7 @@ text-decoration: none;
 .card-col:hover .card-img-overlay {
   opacity: 0.2;
 }
-.add-btn,.edit-btn,.edit-buttom{
+.add-btn,.edit-btn,.edit-buttom,.Reserve-btn{
  background-color:#fe424d !important;
  border:none !important;
 }

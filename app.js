@@ -66,7 +66,6 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(session(sessionOptions));
 app.use(flash());
 app.use((req, res, next) => {
-    res.locals.currentuser = req.user || null;
   res.locals.hideFooter = false;
   next();
 });
